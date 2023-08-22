@@ -4,8 +4,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:30563",
-      "sslPort": 44314
+      "applicationUrl": "http://localhost:36141",
+      "sslPort": 44330
     }
   },
   "profiles": {
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Health_Tracking_App": {
+    "Health_Tracking_API": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

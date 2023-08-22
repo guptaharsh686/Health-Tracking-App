@@ -2,6 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/Health-Tracking-App/.vs/Health-Tracking-App
-/Health-Tracking-App/bin/Debug/net5.0
-/Health-Tracking-App/obj
+/Health-Tracking-Project/.vs/Health-Tracking-Project
+/Health-Tracking-Project/Health-Tracking-API/bin/Debug/net5.0
+/Health-Tracking-Project/Health-Tracking-API/obj

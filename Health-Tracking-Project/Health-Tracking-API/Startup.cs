@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Health_Tracking_App
+namespace Health_Tracking_API
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace Health_Tracking_App
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Health_Tracking_App", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Health_Tracking_API", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace Health_Tracking_App
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Health_Tracking_App v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Health_Tracking_API v1"));
             }
 
             app.UseHttpsRedirection();
