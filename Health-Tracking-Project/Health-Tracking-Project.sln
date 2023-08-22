@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health-Tracking-API", "Heal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health-Tracking-DataService", "Health-Tracking-DataService\Health-Tracking-DataService.csproj", "{F5489931-0B98-4D0E-9D48-FBF33130CF2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health-Tracking-Entities", "Health-Tracking-Entities\Health-Tracking-Entities.csproj", "{4A5AA67B-2E4B-4D44-8224-B019B4AD1E7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F5489931-0B98-4D0E-9D48-FBF33130CF2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5489931-0B98-4D0E-9D48-FBF33130CF2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5489931-0B98-4D0E-9D48-FBF33130CF2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A5AA67B-2E4B-4D44-8224-B019B4AD1E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A5AA67B-2E4B-4D44-8224-B019B4AD1E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A5AA67B-2E4B-4D44-8224-B019B4AD1E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A5AA67B-2E4B-4D44-8224-B019B4AD1E7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
