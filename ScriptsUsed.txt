@@ -1,0 +1,3 @@
+Add migration and other project as a startup project
+
+dotnet ef migrations add "InitialMigration" --startup-project "~\Health-Tracking-App\Health-Tracking-Project\Health-Tracking-API"
