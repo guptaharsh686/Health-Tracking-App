@@ -1,3 +1,7 @@
 Add migration and other project as a startup project
 
-dotnet ef migrations add "InitialMigration" --startup-project "~\Health-Tracking-App\Health-Tracking-Project\Health-Tracking-API"
+dotnet ef migrations add "InitialMigration" --startup-project "D:\GIT\Health-Tracking-App\Health-Tracking-Project\Health-Tracking-API"
+
+generate/update database in startup project
+
+dotnet ef database update --startup-project "D:\GIT\Health-Tracking-App\Health-Tracking-Project\Health-Tracking-API"
