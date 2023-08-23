@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Health-Tracking-DataService\Health-Tracking-DataService.csproj" />
   </ItemGroup>
 
