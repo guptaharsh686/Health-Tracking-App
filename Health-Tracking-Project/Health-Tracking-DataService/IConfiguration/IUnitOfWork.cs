@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Health_Tracking_DataService.IRepository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Health_Tracking_DataService.IConfiguration
 {
     public interface IUnitOfWork
     {
+        IUsersRepository Users { get; }
 
+        Task CompleteAsync();
     }
 }

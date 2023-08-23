@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Health_Tracking_DataService.IRepository
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IUsersRepository : IGenericRepository<User>
     {
 
     }
