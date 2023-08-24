@@ -39,6 +39,15 @@ namespace Health_Tracking_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Health_Tracking_API", Version = "v1" });
             });
+            services.AddApiVersioning(opt =>
+            {
+                //Report to client the different api versions we currently have
+                opt.ReportApiVersions = true;
+                //This will allow api to automatically provide a default version
+                opt.AssumeDefaultVersionWhenUnspecified = true;
+
+                opt.DefaultApiVersion = ApiVersion.Default;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
