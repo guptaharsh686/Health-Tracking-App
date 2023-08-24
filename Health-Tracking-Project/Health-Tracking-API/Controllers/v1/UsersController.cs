@@ -1,4 +1,5 @@
-﻿using Health_Tracking_DataService.Data;
+﻿using Health_Tracking_API.Controllers.v1;
+using Health_Tracking_DataService.Data;
 using Health_Tracking_DataService.IConfiguration;
 using Health_Tracking_Entities.DbSet;
 using Health_Tracking_Entities.Dtos.Incomming;
@@ -10,16 +11,11 @@ using System.Threading.Tasks;
 
 namespace Health_Tracking_API.Controllers
 {
-    [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiController]
-    [ApiVersion("1.0")]
-    public class UsersController : ControllerBase
+   
+    public class UsersController : BaseController
     {
-        private IUnitOfWork _UnitOfWork;
-        public UsersController(IUnitOfWork unitOfWork)//AppDbContext context
+        public UsersController(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            //_context = context;
-            _UnitOfWork = unitOfWork;
         }
 
         //GetAll
