@@ -1,3 +1,4 @@
+using Health_Tracking_API.Configuration.Models;
 using Health_Tracking_DataService.Data;
 using Health_Tracking_DataService.IConfiguration;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,9 @@ namespace Health_Tracking_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Updtae the JWT config from the setting
+            services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+
 
             services.AddDbContext<AppDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             //We need UnitOfWork Per Request
