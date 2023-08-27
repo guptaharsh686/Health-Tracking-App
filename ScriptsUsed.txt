@@ -5,3 +5,14 @@ dotnet ef migrations add "InitialMigration" --startup-project "D:\GIT\Health-Tra
 generate/update database in startup project
 
 dotnet ef database update --startup-project "D:\GIT\Health-Tracking-App\Health-Tracking-Project\Health-Tracking-API"
+
+
+
+PS D:\GIT\Health-Tracking-App\Health-Tracking-Project\Health-Tracking-DataService> dotnet ef migrations add "Add Identity Id to USers table" --startup-project "D:\GIT\Health-Tracking-App\Health-Tracking-Project\Health-Tracking-API"
+Build started...
+Build succeeded.
+Done. To undo this action, use 'ef migrations remove'
+PS D:\GIT\Health-Tracking-App\Health-Tracking-Project\Health-Tracking-DataService> dotnet ef databPS D:\GIT\Health-Tracking-App\Health-Tracking-Project\Health-Tracking-DataService> dotnet ef database update --startup-project "D:\GIT\Health-Tracking-App\Health-Tracking-Project\Health-Tracking-API"
+Build started...
+Build succeeded.
+Done.

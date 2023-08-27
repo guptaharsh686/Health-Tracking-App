@@ -76,6 +76,23 @@ namespace Health_Tracking_API.Controllers.v1
                     });
                 }
 
+
+                //Add to custom users table database
+                var _user = new User();
+
+                _user.FirstName = registreationDto.FirstName;
+                _user.LastName = registreationDto.LastName;
+                _user.Email = registreationDto.Email;
+                _user.Status = 1;
+                _user.Phone = "";
+                _user.DateOfBirth = DateTime.UtcNow;
+                _user.Country = "";
+                _user.IdentityId = new Guid (newUSer.Id);
+
+
+                await _UnitOfWork.Users.Add(_user);
+                await _UnitOfWork.CompleteAsync();
+
                 //create a jwt token
                 var token = GenerateJwtToken(newUSer);
 
