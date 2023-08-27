@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Health-Tracking-Authentication\Health-Tracking-Authentication.csproj" />
     <ProjectReference Include="..\Health-Tracking-DataService\Health-Tracking-DataService.csproj" />
   </ItemGroup>
 

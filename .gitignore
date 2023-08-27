@@ -13,3 +13,5 @@
 /Health-Tracking-Project/Health-Tracking-API/HealthTrackingApp.db-wal
 *.bin
 /~$Notes.docx
+/Health-Tracking-Project/Health-Tracking-Authentication/obj
+/Health-Tracking-Project/Health-Tracking-Authentication/bin/Debug/net5.0

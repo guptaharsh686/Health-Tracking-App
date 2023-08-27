@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health-Tracking-API", "Health-Tracking-API\Health-Tracking-API.csproj", "{E2BA2D7C-0766-475E-8866-F21DF6362168}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Health-Tracking-API", "Health-Tracking-API\Health-Tracking-API.csproj", "{E2BA2D7C-0766-475E-8866-F21DF6362168}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health-Tracking-DataService", "Health-Tracking-DataService\Health-Tracking-DataService.csproj", "{F5489931-0B98-4D0E-9D48-FBF33130CF2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Health-Tracking-DataService", "Health-Tracking-DataService\Health-Tracking-DataService.csproj", "{F5489931-0B98-4D0E-9D48-FBF33130CF2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health-Tracking-Entities", "Health-Tracking-Entities\Health-Tracking-Entities.csproj", "{4A5AA67B-2E4B-4D44-8224-B019B4AD1E7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Health-Tracking-Entities", "Health-Tracking-Entities\Health-Tracking-Entities.csproj", "{4A5AA67B-2E4B-4D44-8224-B019B4AD1E7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health-Tracking-Authentication", "Health-Tracking-Authentication\Health-Tracking-Authentication.csproj", "{A2F8AA06-E223-4B1E-846D-80390439A54E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{4A5AA67B-2E4B-4D44-8224-B019B4AD1E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A5AA67B-2E4B-4D44-8224-B019B4AD1E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A5AA67B-2E4B-4D44-8224-B019B4AD1E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2F8AA06-E223-4B1E-846D-80390439A54E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2F8AA06-E223-4B1E-846D-80390439A54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2F8AA06-E223-4B1E-846D-80390439A54E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2F8AA06-E223-4B1E-846D-80390439A54E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

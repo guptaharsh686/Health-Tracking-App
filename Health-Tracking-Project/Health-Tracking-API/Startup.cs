@@ -1,4 +1,4 @@
-using Health_Tracking_API.Configuration.Models;
+using Health_Tracking_Authentication.Configuration;
 using Health_Tracking_DataService.Data;
 using Health_Tracking_DataService.IConfiguration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
