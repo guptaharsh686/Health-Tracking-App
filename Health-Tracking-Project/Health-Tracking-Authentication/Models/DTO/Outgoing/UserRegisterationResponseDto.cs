@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Health_Tracking_Authentication.Models.DTO.Outgoing
 {
-    public class UserRegisterationResponse : AuthResult
+    public class UserRegisterationResponseDto : AuthResult
     {
     }
 }
