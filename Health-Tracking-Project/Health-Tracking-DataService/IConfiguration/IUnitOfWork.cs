@@ -11,6 +11,8 @@ namespace Health_Tracking_DataService.IConfiguration
     {
         IUsersRepository Users { get; }
 
+        IRefreshTokenRepository RefreshTokens { get; }
+
         Task CompleteAsync();
     }
 }

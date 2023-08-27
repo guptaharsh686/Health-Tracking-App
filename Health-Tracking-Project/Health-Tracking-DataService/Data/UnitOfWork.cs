@@ -18,12 +18,16 @@ namespace Health_Tracking_DataService.Data
 
         public IUsersRepository Users { get; private set; }
 
+        public IRefreshTokenRepository RefreshTokens { get; private set; }
+
+
         public UnitOfWork(AppDbContext context, ILoggerFactory loggerFactory)
         {
             _context = context;
             _logger = loggerFactory.CreateLogger("db_Logs");
 
             Users = new UsersRepository(_context, _logger);
+            RefreshTokens = new RefreshTokensRepository(_context, _logger);
         }
 
         public async Task CompleteAsync()
