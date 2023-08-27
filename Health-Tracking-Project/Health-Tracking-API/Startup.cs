@@ -1,19 +1,25 @@
 using Health_Tracking_API.Configuration.Models;
 using Health_Tracking_DataService.Data;
 using Health_Tracking_DataService.IConfiguration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Health_Tracking_API
@@ -52,6 +58,34 @@ namespace Health_Tracking_API
 
                 opt.DefaultApiVersion = ApiVersion.Default;
             });
+
+            //Add Jwt authentication configuration
+            //letting asp.netcore know to utilize jwt for any task related to authentication or authorization
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(jwt =>
+                {
+                    var Key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
+                    jwt.SaveToken = true;
+                    jwt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        //Validate if the jwt token passed is generated from the secret key which is configured
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Key),
+                        ValidateIssuer = false, // ToDoUpdate
+                        ValidateAudience = false, // ToDoUpdate
+                        RequireExpirationTime = false, // ToDoUpdate
+                        ValidateLifetime = true,
+                    };
+                });
+            //Add all this to IOC container
+            services.AddDefaultIdentity<IdentityUser>(Options =>
+            Options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<AppDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +101,8 @@ namespace Health_Tracking_API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
