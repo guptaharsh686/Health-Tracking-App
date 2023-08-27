@@ -116,6 +116,68 @@ namespace Health_Tracking_API.Controllers.v1
             }
         }
 
+
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginRequestDto loginRequestDto)
+        {
+            if (ModelState.IsValid)
+            {
+
+                //check if email exist
+                var userExists = await _userManager.FindByEmailAsync(loginRequestDto.Email);
+
+                if(userExists == null) 
+                {
+                    return BadRequest(new UserLoginResponseDto
+                    {
+                        Success = false,
+                        Errors = new List<string>()
+                        {
+                            "Invalid Authentication Request"
+                        }
+                    });
+                }
+
+                //check if user has valid password
+                var isCorrect = await _userManager.CheckPasswordAsync(userExists, loginRequestDto.Password);
+
+                if(isCorrect) 
+                {
+                    //generate a JWT token
+                    var jwtToken = GenerateJwtToken(userExists);
+
+                    return Ok(new UserLoginResponseDto
+                    {
+                        Success = true,
+                        Token = jwtToken
+                    });
+                }
+                else
+                {
+                    return BadRequest(new UserLoginResponseDto
+                    {
+                        Success = false,
+                        Errors = new List<string>()
+                        {
+                            "PAssword dosent Match"
+                        }
+                    });
+                }
+
+            }
+            else // Invalid 
+            {
+                return BadRequest(new UserRegisterationResponseDto
+                {
+                    Success = false,
+                    Errors = new List<string>()
+                    {
+                        "Invalid PAyload"
+                    }
+                });
+            }
+        }
         private string GenerateJwtToken(IdentityUser user)
         {
             //handler is going to be responsible to create a token
