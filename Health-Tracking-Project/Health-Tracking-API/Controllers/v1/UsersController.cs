@@ -3,6 +3,8 @@ using Health_Tracking_DataService.Data;
 using Health_Tracking_DataService.IConfiguration;
 using Health_Tracking_Entities.DbSet;
 using Health_Tracking_Entities.Dtos.Incomming;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,7 +13,8 @@ using System.Threading.Tasks;
 
 namespace Health_Tracking_API.Controllers
 {
-   
+    //Make this controller private and accessible to only those who pass jwt token with the request
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UsersController : BaseController
     {
         public UsersController(IUnitOfWork unitOfWork) : base(unitOfWork)
