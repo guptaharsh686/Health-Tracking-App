@@ -5,4 +5,8 @@
     <RootNamespace>Health_Tracking_Entities</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.10" />
+  </ItemGroup>
+
 </Project>

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -59,6 +60,22 @@ namespace Health_Tracking_API
                 opt.DefaultApiVersion = ApiVersion.Default;
             });
 
+            var Key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
+
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Key),
+                ValidateIssuer = false, // ToDoUpdate
+                ValidateAudience = false, // ToDoUpdate
+                RequireExpirationTime = false, // ToDoUpdate
+                ValidateLifetime = true,
+            };
+
+            //Injecting into IOC container
+            services.AddSingleton(tokenValidationParameters);
+
             //Add Jwt authentication configuration
             //letting asp.netcore know to utilize jwt for any task related to authentication or authorization
             services.AddAuthentication(opt =>
@@ -69,18 +86,8 @@ namespace Health_Tracking_API
             })
                 .AddJwtBearer(jwt =>
                 {
-                    var Key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
                     jwt.SaveToken = true;
-                    jwt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                    {
-                        //Validate if the jwt token passed is generated from the secret key which is configured
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Key),
-                        ValidateIssuer = false, // ToDoUpdate
-                        ValidateAudience = false, // ToDoUpdate
-                        RequireExpirationTime = false, // ToDoUpdate
-                        ValidateLifetime = true,
-                    };
+                    jwt.TokenValidationParameters = tokenValidationParameters;
                 });
             //Add all this to IOC container
             services.AddDefaultIdentity<IdentityUser>(Options =>

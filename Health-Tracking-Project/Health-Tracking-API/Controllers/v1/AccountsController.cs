@@ -194,7 +194,7 @@ namespace Health_Tracking_API.Controllers.v1
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) // unique identifier for jwt token specific to tokens . USed by refresh token
                 }),
-                Expires = DateTime.UtcNow.AddHours(3), // To Update the expiration time to minutes
+                Expires = DateTime.UtcNow.Add(_jwtConfig.ExpiryTimeFrame), // To Update the expiration time to minutes
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature), // To review the algo after
             };
 
