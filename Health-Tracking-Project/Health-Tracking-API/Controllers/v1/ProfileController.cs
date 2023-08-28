@@ -1,4 +1,5 @@
 ﻿using Health_Tracking_DataService.IConfiguration;
+using Health_Tracking_Entities.Dtos.Incomming.Profile;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -36,6 +37,50 @@ namespace Health_Tracking_API.Controllers.v1
             }
 
             return Ok(profile);
+        }
+
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileDto profileDto)
+        {
+            // If the model is valid
+            if(!ModelState.IsValid) 
+            {
+                return BadRequest("Invalid PAyload");
+            }
+
+            var loggedInUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (loggedInUser == null)
+            {
+                return BadRequest("User not Found");
+            }
+
+            var idetityId = new Guid(loggedInUser.Id);
+
+            var Userprofile = await _UnitOfWork.Users.GetByIdentityId(idetityId);
+
+            if (Userprofile == null)
+            {
+                return BadRequest("User not Found");
+            }
+
+            Userprofile.Address = profileDto.Address;
+            Userprofile.Sex = profileDto.Sex;
+            Userprofile.Country = profileDto.Country;
+            Userprofile.MobileNumber = profileDto.MobileNumber;
+
+            var isUpdated = await _UnitOfWork.Users.UpdateUserProfile(Userprofile);
+
+            if (isUpdated) 
+            {
+                await _UnitOfWork.CompleteAsync();
+                return Ok(Userprofile);
+            }
+
+            return BadRequest("Something went wrong please try again later");
+
+
         }
     }
 }

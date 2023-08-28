@@ -64,7 +64,6 @@ namespace Health_Tracking_DataService.Repository
             try
             {
                 return await dbSet.Where(x => x.Status == 1 && x.IdentityId == identityId)
-                    .AsNoTracking()
                     .FirstOrDefaultAsync();
 
             }
