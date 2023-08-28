@@ -9,6 +9,8 @@ namespace Health_Tracking_DataService.IRepository
 {
     public interface IRefreshTokenRepository : IGenericRepository<RefreshToken>
     {
+        Task<RefreshToken> GetByRefreshToken(string refreshToken);
 
+        Task<bool> MarkRefreshTokenUsed(RefreshToken refreshToken);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Health_Tracking_Authentication.Models.DTO.Incomming
 {
-    public class TokenRequest
+    public class TokenRequestDto
     {
         [Required]
         public string Token { get; set; }

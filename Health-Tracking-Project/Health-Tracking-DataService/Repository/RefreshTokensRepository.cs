@@ -32,5 +32,43 @@ namespace Health_Tracking_DataService.Repository
                 return Enumerable.Empty<RefreshToken>();
             }
         }
+
+        public async Task<RefreshToken> GetByRefreshToken(string refreshToken)
+        {
+            try
+            {
+                return await dbSet.Where(x => x.Token.ToLower() == refreshToken.ToLower())
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} GetByRefreshToken Method has generated error", typeof(UsersRepository));
+                return null;
+            }
+        }
+
+        public async Task<bool> MarkRefreshTokenUsed(RefreshToken refreshToken)
+        {
+            try
+            {
+                var token =  await dbSet.Where(x => x.Token.ToLower() == refreshToken.Token.ToLower())
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
+
+                if(token == null)
+                {
+                    return false;
+                }
+
+                token.IsUsed = refreshToken.IsUsed;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} MarkRefreshTokenUsed Method has generated error", typeof(UsersRepository));
+                return false;
+            }
+        }
     }
 }
