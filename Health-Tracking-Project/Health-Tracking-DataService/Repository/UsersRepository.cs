@@ -59,5 +59,21 @@ namespace Health_Tracking_DataService.Repository
             }
         }
 
+        public async Task<User> GetByIdentityId(Guid identityId)
+        {
+            try
+            {
+                return await dbSet.Where(x => x.Status == 1 && x.IdentityId == identityId)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} GetByIdentityId Method has generated error", typeof(UsersRepository));
+                return null;
+            }
+        }
+
     }
 }

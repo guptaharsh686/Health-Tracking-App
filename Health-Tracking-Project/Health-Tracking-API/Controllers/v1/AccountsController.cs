@@ -20,7 +20,6 @@ namespace Health_Tracking_API.Controllers.v1
 {
     public class AccountsController : BaseController
     {
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtConfig _jwtConfig;
         private readonly TokenValidationParameters _tokenValidationParameters;
 
@@ -29,9 +28,8 @@ namespace Health_Tracking_API.Controllers.v1
             UserManager<IdentityUser> userManager,
             TokenValidationParameters tokenValidationParameters,
             IOptionsMonitor<JwtConfig> optionsMonitor
-            ) : base(unitOfWork)
+            ) : base(unitOfWork,userManager)
         {
-            _userManager = userManager;
             _jwtConfig = optionsMonitor.CurrentValue;
             _tokenValidationParameters = tokenValidationParameters;
         }
@@ -405,6 +403,7 @@ namespace Health_Tracking_API.Controllers.v1
                 Subject = new System.Security.Claims.ClaimsIdentity(new[]
                 {
                     new Claim("Id", user.Id),
+                    new Claim(ClaimTypes.NameIdentifier,user.Id), // to konw which token belong to which user
                     new Claim(JwtRegisteredClaimNames.Sub, user.Id), // sub = unique id
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) // unique identifier for jwt token specific to tokens . USed by refresh token

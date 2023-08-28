@@ -5,6 +5,7 @@ using Health_Tracking_Entities.DbSet;
 using Health_Tracking_Entities.Dtos.Incomming;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,7 +18,7 @@ namespace Health_Tracking_API.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UsersController : BaseController
     {
-        public UsersController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public UsersController(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager) : base(unitOfWork, userManager)
         {
         }
 
