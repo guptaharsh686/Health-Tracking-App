@@ -5,8 +5,4 @@
     <RootNamespace>Health_Tracking_Authentication</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\DTO\Generic\" />
-  </ItemGroup>
-
 </Project>

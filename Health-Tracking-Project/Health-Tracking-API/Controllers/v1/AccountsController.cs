@@ -1,4 +1,5 @@
 ﻿using Health_Tracking_Authentication.Configuration;
+using Health_Tracking_Authentication.Models.DTO.Generic;
 using Health_Tracking_Authentication.Models.DTO.Incomming;
 using Health_Tracking_Authentication.Models.DTO.Outgoing;
 using Health_Tracking_DataService.IConfiguration;
@@ -21,15 +22,18 @@ namespace Health_Tracking_API.Controllers.v1
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtConfig _jwtConfig;
+        private readonly TokenValidationParameters _tokenValidationParameters;
 
         public AccountsController(
             IUnitOfWork unitOfWork,
             UserManager<IdentityUser> userManager,
+            TokenValidationParameters tokenValidationParameters,
             IOptionsMonitor<JwtConfig> optionsMonitor
             ) : base(unitOfWork)
         {
             _userManager = userManager;
             _jwtConfig = optionsMonitor.CurrentValue;
+            _tokenValidationParameters = tokenValidationParameters;
         }
 
         //Register Action
@@ -94,13 +98,14 @@ namespace Health_Tracking_API.Controllers.v1
                 await _UnitOfWork.CompleteAsync();
 
                 //create a jwt token
-                var token = GenerateJwtToken(newUSer);
+                var token = await GenerateJwtToken(newUSer);
 
                 //return back to user
                 return Ok(new UserRegisterationResponseDto
                 {
                     Success = true,
-                    Token = token,
+                    Token = token.JWTToken,
+                    RefreshToken = token.RefreshToken
                 });
             }
             else // Invalid 
@@ -145,12 +150,14 @@ namespace Health_Tracking_API.Controllers.v1
                 if(isCorrect) 
                 {
                     //generate a JWT token
-                    var jwtToken = GenerateJwtToken(userExists);
+                    var jwtToken = await GenerateJwtToken(userExists);
 
                     return Ok(new UserLoginResponseDto
                     {
                         Success = true,
-                        Token = jwtToken
+                        Token = jwtToken.JWTToken,
+                        RefreshToken = jwtToken.RefreshToken
+
                     });
                 }
                 else
@@ -178,7 +185,7 @@ namespace Health_Tracking_API.Controllers.v1
                 });
             }
         }
-        private string GenerateJwtToken(IdentityUser user)
+        private async Task<TokenData> GenerateJwtToken(IdentityUser user)
         {
             //handler is going to be responsible to create a token
             var jwtHandler = new JwtSecurityTokenHandler();
@@ -204,7 +211,39 @@ namespace Health_Tracking_API.Controllers.v1
             //convert seq object token into string
             var jwtToken = jwtHandler.WriteToken(token);
 
-            return jwtToken;
+            //Generate a refresh token
+            var refreshToken = new RefreshToken
+            {
+                AddedDate = DateTime.UtcNow,
+                Token = $"{RandomStringGenerator(25)}_{Guid.NewGuid()}",
+                UserId = user.Id,
+                IsRevoked = false,
+                IsUsed = false,
+                Status = 1,
+                JwtId = token.Id,
+                ExpiryDate = DateTime.UtcNow.AddMonths(6),
+
+            };
+
+            await _UnitOfWork.RefreshTokens.Add(refreshToken);
+            await _UnitOfWork.CompleteAsync();
+
+            var tokenData = new TokenData
+            {
+                JWTToken = jwtToken,
+                RefreshToken = refreshToken.Token
+            };
+
+            return tokenData;
+        }
+
+
+        private string RandomStringGenerator(int length)
+        {
+            var random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            return new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
