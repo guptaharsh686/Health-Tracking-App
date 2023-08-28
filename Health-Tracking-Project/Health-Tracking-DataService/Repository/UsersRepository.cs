@@ -33,5 +33,31 @@ namespace Health_Tracking_DataService.Repository
             }
         }
 
+        public async Task<bool> UpdateUserProfile(User user)
+        {
+            try
+            {
+                var ExistingUser =  await dbSet.Where(x => x.Status == 1 && x.Id == user.Id).FirstOrDefaultAsync();
+
+                if (ExistingUser == null)
+                {
+                    return false;
+                }
+                ExistingUser.FirstName = user.FirstName;
+                ExistingUser.LastName = user.LastName;
+                ExistingUser.MobileNumber = user.MobileNumber;
+                ExistingUser.Phone = user.Phone;
+                ExistingUser.Sex = user.Sex;
+                ExistingUser.UpdateDate = DateTime.UtcNow;
+                ExistingUser.Address = user.Address;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} UpdateUserProfile Method has generated error", typeof(UsersRepository));
+                return false;
+            }
+        }
+
     }
 }
